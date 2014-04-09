@@ -10,6 +10,7 @@ class Request extends noflo.Component
       path: new noflo.Port 'string'
     @outPorts =
       request: new noflo.Port 'object'
+      error: new noflo.Port 'object'
 
     @requestHandler = (req) =>
       unless @outPorts.request.isAttached()
@@ -34,9 +35,16 @@ class Request extends noflo.Component
       @verb = verb
       @createRoute()
 
+  sendError: (msg) ->
+    return unless @outPorts.error.isAttached()
+    @outPorts.error.send(new Error(msg))
+    @outPorts.error.disconnect()
+
   createRoute: () ->
     return unless @server and @verb and @path
-    return unless @server[@verb]
+    unless @server[@verb]
+      @sendError("Invalid method #{@verb}")
+      return
     @server[@verb](@path, @requestHandler)
 
   removeRoute: ->
