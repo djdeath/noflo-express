@@ -29,11 +29,14 @@ class Server extends noflo.Component
       @sendError("Port #{port} already in use")
       return
     server = express()
-    server.listen(port)
-    @servers[port] = server
-    if @outPorts.server.isAttached()
-      @outPorts.server.send(server)
-      @outPorts.server.disconnect()
+    try
+      server.listen(port)
+      @servers[port] = server
+      if @outPorts.server.isAttached()
+        @outPorts.server.send(server)
+        @outPorts.server.disconnect()
+    catch e
+      sendError("Cannot listen to port #{port} : #{e.message}")
 
   closeServer: (port) ->
     unless @server[port]
