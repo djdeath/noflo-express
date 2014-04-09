@@ -21,8 +21,8 @@ class Server extends noflo.Component
 
   sendError: (msg) ->
     return unless @outPorts.error.isAttached()
-    @outPorts.send(new Error(msg))
-    @outPorts.disconnect()
+    @outPorts.error.send(new Error(msg))
+    @outPorts.error.disconnect()
 
   createServer: (port) ->
     if @servers[port]
@@ -33,7 +33,7 @@ class Server extends noflo.Component
     @servers[port] = server
     if @outPorts.server.isAttached()
       @outPorts.server.send(server)
-      @outPorts.disconnect()
+      @outPorts.server.disconnect()
 
   closeServer: (port) ->
     unless @server[port]
