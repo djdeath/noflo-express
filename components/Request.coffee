@@ -30,7 +30,7 @@ class Request extends noflo.Component
       @verb = verb
       @createRoute()
 
-  updateRoute: () ->
+  createRoute: () ->
     return unless @server and @verb and @path
     @server[@verb](@path, @requestHandler)
 
