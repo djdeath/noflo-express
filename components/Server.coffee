@@ -39,7 +39,7 @@ class Server extends noflo.Component
       @sendError("Cannot listen to port #{port} : #{e.message}")
 
   closeServer: (port) ->
-    unless @server[port]
+    unless @servers[port]
       @sendError("Port #{port} not listened to")
       return
     @servers[port].close()
