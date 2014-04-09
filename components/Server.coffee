@@ -1,5 +1,5 @@
 noflo = require 'noflo'
-express = reqreui 'express'
+express = require 'express'
 #http = require "http"
 #uuid = require "node-uuid"
 
