@@ -36,11 +36,13 @@ class Request extends noflo.Component
 
   createRoute: () ->
     return unless @server and @verb and @path
+    return unless @server[@verb]
     @server[@verb](@path, @requestHandler)
 
   removeRoute: ->
     return unless @server and @verb and @path
     routes = @server.routes[@verb]
+    return unless routes
     for route, i in routes
       if route.path == @path and route.method == @verb
         routes.slice(i, -1)

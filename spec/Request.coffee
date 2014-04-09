@@ -38,3 +38,15 @@ describe 'Request component', ->
       vserver.send server
       vserver.disconnect()
       done()
+
+  describe 'when instantiated', ->
+    it 'should not crash with incorrect method', (done) ->
+      vmethod.send 'get'
+      vmethod.disconnect()
+      vpath.send '/plop.html'
+      vpath.disconnect()
+      vserver.send server
+      vserver.disconnect()
+      vmethod.send 'greoieronierh'
+      vmethod.disconnect()
+      done()
