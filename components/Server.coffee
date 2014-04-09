@@ -1,7 +1,5 @@
 noflo = require 'noflo'
 express = require 'express'
-#http = require "http"
-#uuid = require "node-uuid"
 
 class Server extends noflo.Component
   description: ""
