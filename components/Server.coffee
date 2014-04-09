@@ -36,7 +36,7 @@ class Server extends noflo.Component
         @outPorts.server.send(server)
         @outPorts.server.disconnect()
     catch e
-      sendError("Cannot listen to port #{port} : #{e.message}")
+      @sendError("Cannot listen to port #{port} : #{e.message}")
 
   closeServer: (port) ->
     unless @server[port]
