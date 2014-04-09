@@ -12,7 +12,11 @@ class Request extends noflo.Component
       request: new noflo.Port 'object'
 
     @requestHandler = (req) =>
-      @handleRequest(req)
+      unless @outPorts.request.isAttached()
+        req.abort()
+        return
+      @outPorts.request.send(req)
+      @outPorts.disconnect()
 
     @verb = 'get'
     @path = '/'
