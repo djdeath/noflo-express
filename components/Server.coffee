@@ -2,7 +2,7 @@ noflo = require 'noflo'
 express = require 'express'
 
 class Server extends noflo.Component
-  description: ""
+  description: "A basic express.js server creation component"
 
   constructor: ->
     @inPorts =
