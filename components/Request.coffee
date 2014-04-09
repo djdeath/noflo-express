@@ -6,7 +6,7 @@ class Request extends noflo.Component
   constructor: ->
     @inPorts =
       server: new noflo.Port 'number'
-      verb: new noflo.Port 'string'
+      method: new noflo.Port 'string'
       path: new noflo.Port 'string'
     @outPorts =
       request: new noflo.Port 'object'
@@ -25,7 +25,7 @@ class Request extends noflo.Component
       @removeRoute()
       @path = path
       @createRoute()
-    @inPorts.verb.on 'data', (verb) =>
+    @inPorts.method.on 'data', (verb) =>
       @removeRoute()
       @verb = verb
       @createRoute()
@@ -37,9 +37,9 @@ class Request extends noflo.Component
   removeRoute: ->
     return unless @server and @verb and @path
     routes = @server.routes[@verb]
-    for route in routes
-      if route.path == @path
-        route.slice()
+    for route, i in routes
+      if route.path == @path and route.method == @verb
+        routes.slice(i, -1)
 
   shutdown: ->
     @removeRoute()
