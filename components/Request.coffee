@@ -44,4 +44,4 @@ class Request extends noflo.Component
   shutdown: ->
     @removeRoute()
 
-exports.getComponent = -> new Server
+exports.getComponent = -> new Request
