@@ -16,7 +16,7 @@ class Request extends noflo.Component
         req.abort()
         return
       @outPorts.request.send(req)
-      @outPorts.disconnect()
+      @outPorts.request.disconnect()
 
     @verb = 'get'
     @path = '/'
