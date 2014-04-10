@@ -5,7 +5,7 @@ class Request extends noflo.Component
 
   constructor: ->
     @inPorts =
-      server: new noflo.Port 'number'
+      app: new noflo.Port 'number'
       method: new noflo.Port 'string'
       path: new noflo.Port 'string'
     @outPorts =
@@ -22,9 +22,9 @@ class Request extends noflo.Component
     @verb = 'get'
     @path = '/'
 
-    @inPorts.server.on 'data', (server) =>
+    @inPorts.app.on 'data', (app) =>
       @removeRoute()
-      @server = server
+      @app = app
       @createRoute()
     @inPorts.path.on 'data', (path) =>
       @removeRoute()
@@ -41,15 +41,15 @@ class Request extends noflo.Component
     @outPorts.error.disconnect()
 
   createRoute: () ->
-    return unless @server and @verb and @path
-    unless @server[@verb]
+    return unless @app and @verb and @path
+    unless @app[@verb]
       @sendError("Invalid method #{@verb}")
       return
-    @server[@verb](@path, @requestHandler)
+    @app[@verb](@path, @requestHandler)
 
   removeRoute: ->
-    return unless @server and @verb and @path
-    routes = @server.routes[@verb]
+    return unless @app and @verb and @path
+    routes = @app.routes[@verb]
     return unless routes
     for route, i in routes
       if route.path == @path and route.method == @verb

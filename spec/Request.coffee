@@ -4,42 +4,42 @@ Request = require '../components/Request'
 
 describe 'Request component', ->
   c = null
-  server = null
+  app = null
   vmethod = null
   vpath = null
-  vserver = null
+  vapp = null
   vrequest = null
   verror = null
   beforeEach ->
     c = Request.getComponent()
-    server  = express()
+    app  = express()
     vmethod = noflo.internalSocket.createSocket()
     vpath = noflo.internalSocket.createSocket()
-    vserver = noflo.internalSocket.createSocket()
+    vapp = noflo.internalSocket.createSocket()
     vrequest = noflo.internalSocket.createSocket()
     verror = noflo.internalSocket.createSocket()
     c.inPorts.method.attach vmethod
     c.inPorts.path.attach vpath
-    c.inPorts.server.attach vserver
+    c.inPorts.app.attach vapp
     c.outPorts.request.attach vrequest
     c.outPorts.error.attach verror
 
   describe 'when instantiated', ->
-    it 'should add a route to the server', (done) ->
+    it 'should add a route to the app', (done) ->
       vmethod.send 'get'
       vmethod.disconnect()
       vpath.send '/plop.html'
       vpath.disconnect()
-      vserver.send server
-      vserver.disconnect()
+      vapp.send app
+      vapp.disconnect()
       done()
-    it 'should remove a route from the server and add a new one', (done) ->
+    it 'should remove a route from the app and add a new one', (done) ->
       vmethod.send 'get'
       vmethod.disconnect()
       vpath.send '/coin.html'
       vpath.disconnect()
-      vserver.send server
-      vserver.disconnect()
+      vapp.send app
+      vapp.disconnect()
       done()
 
   describe 'when instantiated', ->
@@ -50,7 +50,7 @@ describe 'Request component', ->
       vmethod.disconnect()
       vpath.send '/plop.html'
       vpath.disconnect()
-      vserver.send server
-      vserver.disconnect()
+      vapp.send app
+      vapp.disconnect()
       vmethod.send 'greoieronierh'
       vmethod.disconnect()
