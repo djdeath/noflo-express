@@ -9,6 +9,7 @@ class Server extends noflo.Component
       listen: new noflo.Port 'number'
       close: new noflo.Port 'number'
     @outPorts =
+      app: new noflo.Port 'object'
       server: new noflo.Port 'object'
       error: new noflo.Port 'object'
 
@@ -28,10 +29,15 @@ class Server extends noflo.Component
     if @servers[port]
       @sendError("Port #{port} already in use")
       return
-    server = express()
     try
-      server.listen(port)
-      @servers[port] = server
+      app = express()
+      server = app.listen(port)
+      @servers[port] =
+        app: app
+        server: server
+      if @outPorts.app.isAttached()
+        @outPorts.app.send(app)
+        @outPorts.app.disconnect()
       if @outPorts.server.isAttached()
         @outPorts.server.send(server)
         @outPorts.server.disconnect()
@@ -42,7 +48,7 @@ class Server extends noflo.Component
     unless @servers[port]
       @sendError("Port #{port} not listened to")
       return
-    @servers[port].close()
+    @servers[port].server.close()
     delete @servers[port]
 
   shutdown: ->
