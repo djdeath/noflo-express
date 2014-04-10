@@ -28,7 +28,7 @@ class Server extends noflo.Component
     if @servers[port]
       @sendError("Port #{port} already in use")
       return
-    server = express.createServer()
+    server = express()
     try
       server.listen(port)
       @servers[port] = server
