@@ -15,9 +15,9 @@ class Server extends noflo.Component
     @servers = {}
 
     @inPorts.listen.on 'data', (port) =>
-      @createServer(port)
+      @createServer(parseInt(port))
     @inPorts.close.on 'data', (port) =>
-      @closeServer(port)
+      @closeServer(parseInt(port))
 
   sendError: (msg) ->
     return unless @outPorts.error.isAttached()
