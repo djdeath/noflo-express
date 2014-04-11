@@ -31,6 +31,7 @@
     "icon": "globe",
     "components": {
       "Next": "components/Next.coffee",
+      "Redirect": "components/Redirect.coffee",
       "Request": "components/Request.coffee",
       "RequestParam": "components/RequestParam.coffee",
       "SendFile": "components/SendFile.coffee",
