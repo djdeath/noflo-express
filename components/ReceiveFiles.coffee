@@ -16,7 +16,7 @@ class ReceiveFiles extends noflo.Component
       if request.files
         @sendFiles(request)
       else
-        @sendError("No file number #{@num}")
+        @sendError("No files attached")
     @inPorts.in.on 'disconnect', () =>
       @outPorts.out.disconnect() if @outPorts.out.isConnected()
 
