@@ -30,6 +30,7 @@
   "noflo": {
     "icon": "globe",
     "components": {
+      "Next": "components/Next.coffee",
       "Request": "components/Request.coffee",
       "RequestParam": "components/RequestParam.coffee",
       "SendFile": "components/SendFile.coffee",
