@@ -39,9 +39,7 @@ class Request extends noflo.Component
       @createRoute()
 
   sendError: (msg) ->
-    return unless @outPorts.error.isAttached()
-    @outPorts.error.send(new Error(msg))
-    @outPorts.error.disconnect()
+    @error new Error msg
 
   createRoute: () ->
     return unless @app and @verb and @path
