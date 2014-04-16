@@ -38,6 +38,7 @@
       "Request": "components/Request.coffee",
       "RequestEnd": "components/RequestEnd.coffee",
       "RequestParam": "components/RequestParam.coffee",
+      "RequestStore": "components/RequestStore.coffee",
       "Send": "components/Send.coffee",
       "SendError": "components/SendError.coffee",
       "SendFile": "components/SendFile.coffee",
