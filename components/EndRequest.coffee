@@ -9,10 +9,16 @@ class EndRequest extends noflo.Component
     @outPorts =
       out: new noflo.Port 'object'
 
+    @inPorts.in.on 'begingroup', (group) =>
+      return unless @outPorts.out.isAttached()
+      @outPorts.out.beginGroup group
     @inPorts.in.on 'data', (request) =>
       request.end()
       return unless @outPorts.out.isAttached()
       @outPorts.out.send(request)
+    @inPorts.in.on 'endgroup', () =>
+      return unless @outPorts.out.isAttached()
+      @outPorts.out.endGroup()
     @inPorts.in.on 'disconnect', () =>
       return unless @outPorts.out.isConnected()
       @outPorts.out.disconnect()
