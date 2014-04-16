@@ -1,13 +1,14 @@
 noflo = require 'noflo'
 
 class RequestStore extends noflo.Component
-  description: ''
+  description: 'Store IIPs using their group and outputs them when'
   constructor: ->
     @inPorts =
       push: new noflo.Port 'object'
       pop: new noflo.Port 'bang'
     @outPorts =
       out: new noflo.Port 'object'
+      # TODO : add loadgroup/loadiip ports
 
     @iips = {}
     @groups = []
@@ -32,10 +33,12 @@ class RequestStore extends noflo.Component
     @inPorts.pop.on 'data', () =>
       group = @groupsReq[@groupsReq.length - 1]
       return unless group?
-      iip = @iips[group].shift()
-      return unless iip?
-      return unless @outPorts.out.isAttached()
-      @outPorts.out.send iip
+      return unless @iips[group]?
+      if @outPorts.out.isAttached()
+        while @iips[group].length > 0
+          iip = @iips[group].shift()
+          @outPorts.out.send iip
+      delete @iips[group]
     @inPorts.pop.on 'endgroup', () =>
       @groupsReq.pop()
       return unless @outPorts.out.isAttached()
