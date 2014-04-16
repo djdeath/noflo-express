@@ -3,7 +3,7 @@ express = require 'express'
 
 class SendFile extends noflo.Component
   icon: 'sign-out'
-  description: "Sends a file to a client's request"
+  description: "Sends a file as a response"
 
   constructor: ->
     @inPorts =
@@ -19,16 +19,11 @@ class SendFile extends noflo.Component
     @inPorts.in.on 'data', (request) =>
       @request = request
     @inPorts.in.on 'disconnect', () =>
-      return unless @request
+      return unless @request? and @path?
       request = @request
-      @request.res.sendfile(@path, {}, (err) =>
-        if err then @sendError(err) else @done(request))
       delete @request
-
-  sendError: (err) ->
-    return unless @outPorts.error.isAttached()
-    @outPorts.error.send(err)
-    @outPorts.error.disconnect()
+      request.res.sendfile @path, {}, (err) =>
+        if err then @error err else @done request
 
   done: (request) ->
     return unless @outPorts.out.isAttached()
