@@ -1,4 +1,5 @@
 noflo = require 'noflo'
+uuid = requier 'node-uuid'
 
 class Request extends noflo.Component
   description: ""
@@ -16,7 +17,9 @@ class Request extends noflo.Component
       unless @outPorts.request.isAttached()
         req.abort()
         return
-      @outPorts.request.send(req)
+      @outPorts.request.beginGroup uuid()
+      @outPorts.request.send req
+      @outPorts.request.endGroup()
       @outPorts.request.disconnect()
 
     @verb = 'get'
