@@ -2,9 +2,8 @@ noflo = require 'noflo'
 express = require 'express'
 
 class ReceiveFiles extends noflo.Component
-  icon: 'sign-in'
+  icon: 'files-o'
   description: "Received files from a client's request"
-
   constructor: ->
     @inPorts =
       in: new noflo.Port 'object'
