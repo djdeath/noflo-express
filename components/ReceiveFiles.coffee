@@ -9,7 +9,7 @@ class ReceiveFiles extends noflo.Component
     @inPorts =
       in: new noflo.Port 'object'
     @outPorts =
-      out: new noflo.Port 'object'
+      file: new noflo.Port 'object'
       error: new noflo.Port 'object'
 
     @inPorts.in.on 'data', (request) =>
@@ -18,16 +18,14 @@ class ReceiveFiles extends noflo.Component
       else
         @sendError("No files attached")
     @inPorts.in.on 'disconnect', () =>
-      @outPorts.out.disconnect() if @outPorts.out.isConnected()
+      @outPorts.file.disconnect() if @outPorts.file.isConnected()
 
-  sendError: (err) ->
-    return unless @outPorts.error.isAttached()
-    @outPorts.error.send(new Error(err))
-    @outPorts.error.disconnect()
+  sendError: (msg) ->
+    @error new Error msg
 
   sendFiles: (request) ->
-    return unless @outPorts.out.isAttached()
+    return unless @outPorts.file.isAttached()
     for name, obj of request.files
-      @outPorts.out.send(obj)
+      @outPorts.file.send(obj)
 
 exports.getComponent = -> new ReceiveFiles
