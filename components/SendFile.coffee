@@ -24,7 +24,6 @@ class SendFile extends noflo.Component
       @request.res.sendfile(@path, {}, (err) =>
         if err then @sendError(err) else @done(request))
       delete @request
-      delete @path
 
   sendError: (err) ->
     return unless @outPorts.error.isAttached()
