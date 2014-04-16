@@ -39,7 +39,8 @@
       "RequestEnd": "components/RequestEnd.coffee",
       "RequestParam": "components/RequestParam.coffee",
       "SendFile": "components/SendFile.coffee",
-      "Server": "components/Server.coffee"
+      "Server": "components/Server.coffee",
+      "StatusCode": "components/StatusCode.coffee"
     }
   },
   "scripts": {
