@@ -36,6 +36,7 @@
       "ReceiveFiles": "components/ReceiveFiles.coffee",
       "Redirect": "components/Redirect.coffee",
       "Request": "components/Request.coffee",
+      "RequestEnd": "components/RequestEnd.coffee",
       "RequestParam": "components/RequestParam.coffee",
       "SendFile": "components/SendFile.coffee",
       "Server": "components/Server.coffee"
