@@ -1,5 +1,5 @@
 noflo = require 'noflo'
-uuid = requier 'node-uuid'
+uuid = require 'node-uuid'
 
 class Request extends noflo.Component
   description: ""
