@@ -1,5 +1,4 @@
 noflo = require 'noflo'
-express = require 'express'
 
 class SendError extends noflo.Component
   icon: 'warning'
@@ -14,24 +13,26 @@ class SendError extends noflo.Component
 
     @inPorts.error.on 'data', (error) =>
       @_error = error
+      @sendError()
 
     @inPorts.in.on 'begingroup', (group) =>
       return unless @outPorts.out.isAttached()
       @outPorts.out.beginGroup group
     @inPorts.in.on 'data', (request) =>
       @request = request
-    @inPorts.in.on 'disconnect', () =>
-      return unless @request? and @_error?
-      request = @request
-      delete @request
-      request.res.send({ error: @_error.message })
-      return unless @outPorts.out.isAttached()
-      @outPorts.out.send(request)
+      @sendError()
     @inPorts.in.on 'endgroup', () =>
       return unless @outPorts.out.isAttached()
       @outPorts.out.endGroup()
     @inPorts.in.on 'disconnect', () =>
       return unless @outPorts.out.isConnected()
       @outPorts.out.disconnect()
+
+  sendError: () ->
+    return unless @request? and @_error?
+    @request.res.send({ error: @_error.message })
+    @outPorts.out.send(@request) if @outPorts.out.isAttached()
+    @request = null
+    @_error = null
 
 exports.getComponent = -> new SendError
