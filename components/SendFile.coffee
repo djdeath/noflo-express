@@ -1,5 +1,4 @@
 noflo = require 'noflo'
-express = require 'express'
 
 class SendFile extends noflo.Component
   icon: 'sign-out'
