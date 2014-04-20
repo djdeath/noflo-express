@@ -1,5 +1,4 @@
 noflo = require 'noflo'
-express = require 'express'
 
 class Send extends noflo.Component
   icon: 'sign-out'
@@ -14,24 +13,26 @@ class Send extends noflo.Component
 
     @inPorts.data.on 'data', (data) =>
       @data = data
+      @sendData()
 
     @inPorts.in.on 'begingroup', (group) =>
       return unless @outPorts.out.isAttached()
       @outPorts.out.beginGroup group
     @inPorts.in.on 'data', (request) =>
       @request = request
-    @inPorts.in.on 'disconnect', () =>
-      return unless @request? and @data?
-      request = @request
-      delete @request
-      request.res.send(@data)
-      return unless @outPorts.out.isAttached()
-      @outPorts.out.send(request)
+      @sendData()
     @inPorts.in.on 'endgroup', () =>
       return unless @outPorts.out.isAttached()
       @outPorts.out.endGroup()
     @inPorts.in.on 'disconnect', () =>
       return unless @outPorts.out.isConnected()
       @outPorts.out.disconnect()
+
+  sendData: () ->
+    return unless @request? and @data?
+    @request.res.send(@data)
+    @outPorts.out.send(@request) if @outPorts.out.isAttached()
+    @request = null
+    @data = null
 
 exports.getComponent = -> new Send
