@@ -21,9 +21,7 @@ class Server extends noflo.Component
       @closeServer(parseInt(port))
 
   sendError: (msg) ->
-    return unless @outPorts.error.isAttached()
-    @outPorts.error.send(new Error(msg))
-    @outPorts.error.disconnect()
+    @error new Error msg
 
   createServer: (port) ->
     if @servers[port]
