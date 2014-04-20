@@ -43,6 +43,7 @@
       "Send": "components/Send.coffee",
       "SendError": "components/SendError.coffee",
       "SendFile": "components/SendFile.coffee",
+      "SendJson": "components/SendJson.coffee",
       "Server": "components/Server.coffee",
       "StatusCode": "components/StatusCode.coffee"
     }
