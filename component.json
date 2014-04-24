@@ -1,0 +1,53 @@
+{
+  "name": "noflo-express",
+  "description": "NoFlo components for the express web framework",
+  "version": "0.0.1",
+  "author": {
+    "name": "Lionel Landwerlin",
+    "email": "lionel.g.landwerlin@linux.intel.com"
+  },
+  "repo": "djdeath/noflo-express",
+  "keywords": [
+  ],
+  "scripts": [
+    "index.js",
+    "components/EndRequest.coffee",
+    "components/EndResponse.coffee",
+    "components/Next.coffee",
+    "components/ReceiveFiles.coffee",
+    "components/Redirect.coffee",
+    "components/Request.coffee",
+    "components/RequestEnd.coffee",
+    "components/RequestParam.coffee",
+    "components/RequestStore.coffee",
+    "components/Send.coffee",
+    "components/SendError.coffee",
+    "components/SendFile.coffee",
+    "components/SendJson.coffee",
+    "components/Server.coffee",
+    "components/StatusCode.coffee"
+  ],
+  "json": [
+    "component.json"
+  ],
+  "noflo": {
+    "icon": "globe",
+    "components": {
+      "EndRequest": "components/EndRequest.coffee",
+      "EndResponse": "components/EndResponse.coffee",
+      "Next": "components/Next.coffee",
+      "ReceiveFiles": "components/ReceiveFiles.coffee",
+      "Redirect": "components/Redirect.coffee",
+      "Request": "components/Request.coffee",
+      "RequestEnd": "components/RequestEnd.coffee",
+      "RequestParam": "components/RequestParam.coffee",
+      "RequestStore": "components/RequestStore.coffee",
+      "Send": "components/Send.coffee",
+      "SendError": "components/SendError.coffee",
+      "SendFile": "components/SendFile.coffee",
+      "SendJson": "components/SendJson.coffee",
+      "Server": "components/Server.coffee",
+      "StatusCode": "components/StatusCode.coffee"
+    }
+  }
+}
