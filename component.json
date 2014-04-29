@@ -9,6 +9,10 @@
   "repo": "djdeath/noflo-express",
   "keywords": [
   ],
+  "dependencies": {
+    "noflo/noflo": "*",
+    "broofa/node-uuid": "*"
+  },
   "scripts": [
     "index.js",
     "components/EndRequest.coffee",
