@@ -50,6 +50,7 @@ class Request extends noflo.Component
 
   removeRoute: ->
     return unless @app and @verb and @path
+    return unless @app.routes
     routes = @app.routes[@verb]
     return unless routes
     for route, i in routes
